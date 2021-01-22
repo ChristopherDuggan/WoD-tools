@@ -11,30 +11,41 @@
  * "true" tie. This should be added later.*****
  */
 
+const d10 = require('./d10');
 
 const rollInitiative = (characters) => {
   if (!characters){
     return 'please enter some characters';
   }
 
+  let order = []
+
   for ( let i = 0; i < Object.keys(characters).length; i++ ) {
 
+    let player = characters[i];
+    let init = player.dex + player.wit + d10.raw();
+    let result = {
+      name: player.name,
+      init: init
+    }
+
+    order.push(result);
   }
 
-  console.log(Object.values(characters)[0]['dex']+Object.values(characters)[0]['wit'] )
+return order;
 }
 
-console.log(rollInitiative({
-  Chris: {
+console.log(rollInitiative([
+  { name: 'Chris',
     dex: 3,
     wit: 2,
   },
-  Goomba: {
+  { name: 'Goomba',
     dex: 4,
     wit: 3,
   },
-  Link: {
+  { name: 'Link',
     dex: 5,
     wit: 1,
   }
-}))
+]))
